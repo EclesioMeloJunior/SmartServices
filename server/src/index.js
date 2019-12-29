@@ -1,5 +1,7 @@
-const environment = process.env.NODE_ENV;
+const cors = require('cors');
+const express = require('express');
+const bodyParser = require('body-parser');
 
-const config = require(`../config/${environment}.json`);
+const app = express();
 
-console.log(config);
+module.exports = app;

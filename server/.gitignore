@@ -3,3 +3,7 @@ node_modules/
 config/development.json
 
 package-lock.json
+
+logs/
+
+*.log
