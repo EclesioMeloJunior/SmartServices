@@ -2,6 +2,7 @@ const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const config = require('../config');
+const apiRouters = require('./routers');
 
 const app = express();
 
@@ -17,5 +18,7 @@ app.get('/', (_, response) => {
     environment: config.environment
   });
 });
+
+app.use('/api', apiRouters(express.Router()));
 
 module.exports = app;
