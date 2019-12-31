@@ -14,7 +14,8 @@ function isMigrationFile(filename) {
 async function executeMigrations() {
   const migrationsFiles = fs
     .readdirSync(MIGRATIONS_PATH)
-    .filter(isMigrationFile);
+    .filter(isMigrationFile)
+    .sort();
 
   const databaseConnection = await database.connect(config.database);
 
@@ -27,7 +28,7 @@ async function executeMigrations() {
       const migration = path.resolve(MIGRATIONS_PATH, migrationFile);
       const { executeMigration } = require(migration);
 
-      await executeMigration(databaseConnection);
+      await executeMigration(databaseConnection.db);
     } catch (exception) {
       databaseLog(
         `fail to execute migration: ${migrationFile}\nexception: ${exception}`
@@ -37,7 +38,7 @@ async function executeMigrations() {
 
   databaseLog('ending migrations execution');
 
-  await databaseConnection.end();
+  await databaseConnection.db.end();
   process.exit();
 }
 

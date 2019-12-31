@@ -1,6 +1,10 @@
 const pg = require('pg');
 const { databaseLog } = require('./lib/logger');
 
+const database = {
+  db: null
+};
+
 async function connect({ host, port, name, user, password }) {
   databaseLog('Starting database connection');
 
@@ -13,15 +17,20 @@ async function connect({ host, port, name, user, password }) {
   });
 
   try {
-    const connection = await connectionPool.connect();
+    database.db = await connectionPool.connect();
     databaseLog('Database connected', { host, port, name, user, password });
-    return connection;
+    return database;
   } catch (exception) {
+    database.db = null;
     databaseLog(`Problems to connect to database\n${exception}`);
     throw exception;
   }
 }
 
 module.exports = {
-  connect: async databaseConfig => await connect(databaseConfig)
+  connect: async databaseConfig => {
+    if (!database.db) await connect(databaseConfig);
+    return database;
+  },
+  db: () => database.db
 };

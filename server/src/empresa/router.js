@@ -1,7 +1,7 @@
-const { getEmpresas } = require('./controllers/empresa.controller');
+const { getEmpresasController } = require('./controllers');
 
 function setupRoutes(router) {
-  router.get('/', getEmpresas);
+  router.get('/', getEmpresasController);
 
   return router;
 }
