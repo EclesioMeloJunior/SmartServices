@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "migrate:up": "NODE_ENV=development node scripts/migrate",
     "start:dev": "NODE_ENV=development nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,6 +22,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "pg": "^7.17.0",
     "winston": "^3.2.1"
   }
 }
