@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  postgresdb:
+    image: postgres:11
+    ports:
+      - "5433:5432"
+    restart: always
+    networks:
+      - stonet
+    environment:
+      POSTGRES_PASSWORD: root
+      
+networks:
+  stonet:
+    driver: bridge
